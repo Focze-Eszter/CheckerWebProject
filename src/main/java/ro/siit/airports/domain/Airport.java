@@ -1,4 +1,4 @@
-package ro.siit.airports.model;
+package ro.siit.airports.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

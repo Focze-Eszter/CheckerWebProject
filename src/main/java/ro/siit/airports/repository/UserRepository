@@ -1,0 +1,12 @@
+/*package ro.siit.airports.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import ro.siit.airports.domain.User;
+
+import java.util.List;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    List<User> findByUser(String user);
+}
+*/

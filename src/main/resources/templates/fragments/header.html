@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <header class="sticky" th:fragment="header">
+        <a href="#" class="logo">Flights checker</a>
+        <ul>
+            <li><a href="/home" >Home</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Airport</a></li>
+            <li><a href="#">Airline</a></li>
+            <li><a href="#">Flight</a></li>
+            <li>
+                <a href="/register" id="login" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Sign in
+                </a>
+            </li>
+        </ul>
+    </header>
+</html>

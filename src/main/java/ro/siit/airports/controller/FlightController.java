@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ro.siit.airports.domain.Flight;
 import ro.siit.airports.repository.FlightRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -29,5 +30,14 @@ public class FlightController {
         mav.addObject("flight", flight);
         return mav;
 
+    }
+
+    @GetMapping("/flight/city/{city}/date/{date}")
+    public ModelAndView displayFilteredFlights(@PathVariable("city") final String city,
+                                       @PathVariable("date") final String date) {
+        final ModelAndView mav = new ModelAndView("filtered-flights");
+        final List<Flight> flights = flightRepository.findFlightsByCustomRules(LocalDateTime.parse(date), city);
+        mav.addObject("flights", flights);
+        return mav;
     }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form validation</title>
+    <script src="https://kit.fontawesome.com/c5db01e738.js" crossorigin="anonymous"></script>
+    <!--<link href="../static/css/stylish.css" th:href="@{../static/css/stylish.css}" rel="stylesheet" />-->
+    <link href="/static/css/stylish.css" th:href="@{/css/stylish.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src = "@{/static/js/login-action.js}" src="/static/js/login-action.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-info" th:if="${exist}">
+        <p class="text text-center">
+            User with this Email already exist
+        </p>
+    </div>
+    <div class="header">
+        <h2>Sign up</h2>
+    </div>
+    <form  th:action="@{/register}" th:object="${user}" method="post" id="form" class="form">
+        <div class="form-control">
+            <label for="username"><b>Username</b></label>
+            <input type="text" th:field ="*{name}" required placeholder="username12" id="username" />
+            <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+            <label for="email"><b>Email</b></label>
+            <input type="email" th:field ="*{email}" required placeholder="user@yahoo.com" id="email" />
+            <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+            <label for="username"><b>Password</b></label>
+            <input type="password" th:field = "*{password}" required placeholder="Password" id="password" />
+            <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+            <label for="username"><b>Password check</b></label>
+            <input type="password" placeholder="Password Two" id="password2" />
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>Error message</small>
+        </div>
+        <button value="submit">Create your account</button>
+        <p class="py-2">Already have an account?<a th:href="@{/login}">Sign-in</a></p>
+    </form>
+
+</div>
+    <script type="text/javascript" th:src = "@{/js/login-action.js}" src="/js/login-action.js"></script>
+</body>
+</html>

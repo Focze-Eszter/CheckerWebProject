@@ -1,7 +1,5 @@
 package ro.siit.airports.service;
 
-import javafx.print.Collation;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ro.siit.airports.domain.User;
@@ -15,11 +13,6 @@ public class CustomUserDetail implements UserDetails {
     public CustomUserDetail(User user) {
         this.user = user;
     }
-
-    /*@Override
-    public Collation<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

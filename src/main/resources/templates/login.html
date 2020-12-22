@@ -20,9 +20,15 @@
     <link href="/static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet" />
 </head>
 <body>
+<header th:insert="header :: head"></header>
 <div class="container">
-    <div class="alert alert-info" th:if="${param.error}">
-        <h2>Invalid email or password</h2>
+
+        <div class="form-group" th:if="${param.error}">
+            Invalid email or password.
+        </div>
+        <div class="form-group" th:if="${param.logout}">
+            You have been logged out successfully.
+        </div>
     </div>
     <div class="d-flex justify-content-center h-100">
         <div class="card">
@@ -57,13 +63,13 @@
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-center links">
-                    Don't have an account?<a th:href="@{/register}">Sign Up</a>
+                    Don't have an account?<a th:href="@{/register}"> Sign Up</a>
                 </div>
                 <div class="d-flex justify-content-center">
                 </div>
             </div>
         </div>
     </div>
-</div>
+<div th:insert = "footer :: foot"></div>
 </body>
 </html>

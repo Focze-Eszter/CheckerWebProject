@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Airports</title>
+    <link href="search-style.css" th:href="@{../static/css/search-style.css}" rel="stylesheet" />
+</head>
+<body>
+
+<header th:insert="header :: head"></header>
+
+<section class="background" >
+    <div class="container">
+        <div class="search">
+            <form class="search-fields"
+                  th:action="@{/airports-complete-table}" method="post" th:object="${showAirports}">
+
+                <div class="form-group">
+                    <label for="search">Search</label>
+                    <input id="search" type="text" class="form-control" th:field = "*{keyword}" placeholder="Type an airport name, city or country"/>
+                </div>
+                <button type="submit" class btn-primary-custom>Search</button>
+            </form>
+        </div>
+    </div>
+</section>
+<div th:insert = "footer :: foot"></div>
+</body>
+</html>

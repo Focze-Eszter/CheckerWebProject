@@ -1,16 +1,28 @@
-<html th:fragments="foot" id="footer" xmlns:th="http://www.w3.org/1999/xhtml" >
+<html  xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <link href="footer.css" th:href="@{/css/footer.css}" rel="stylesheet"/>
+</head>
 <body>
-<div >
-    <p>
-        &copy; 2020 FoczeEszter
-    </p>
+<div th:fragment="foot" class="footer">
 
+        <!--<footer class="page-footer font-small" style="background: rgba(36, 35, 37, 1)" >
+            <div class="footer-copyright text-center py-3" style="color: #f0f0f0" >© 2020 MyAirports
+
+            </div>
+        </footer> -->
+    <footer id="footer">
+        <p>
+            ©copyright All rights reserved 2020 MyProject Airports-Demo by Focze Eszter
+        </p>
+    </footer>
+</div>
 <script type="text/javascript ">
     window.addEventListener("scroll", function() {
         var header = document.querySelector("header");
         header.classList.toggle("sticky", window.scrollY > 0);
     });
 </script>
-</div>
 </body>
 </html>
+
+

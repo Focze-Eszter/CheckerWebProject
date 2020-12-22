@@ -12,26 +12,7 @@
 </head>
 <body>
 
-<header class="sticky">
-    <a href="#" class="logo">Flights checker</a>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Search</a></li>
-        <li><a href="#">Airport</a></li>
-        <li><a href="#">Airline</a></li>
-        <li><a href="#">Flight</a></li>
-        <li>
-            <a href="#" id="login">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Sign in
-            </a>
-        </li>
-
-    </ul>
-</header>
+<header th:insert="header :: head"></header>
 
 <div class="card">
     <div class="card-body">
@@ -74,14 +55,7 @@
     </div>
 </div>
 
-
-<section class="banner"></section>
-<script type="text/javascript ">
-    window.addEventListener("scroll", function() {
-        var header = document.querySelector("header");
-        header.classList.toggle("sticky", window.scrollY > 0);
-    });
-</script>
-
+<div th:insert = "footer :: foot"></div>
 
 </body>
+</html>

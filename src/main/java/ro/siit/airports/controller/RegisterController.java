@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -34,30 +35,34 @@ public class RegisterController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }*/
 
-    //private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
 
     @GetMapping("/register")
     public String registerForm(Model model) {
-
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @PostMapping("/register")
+   /* @PostMapping("/register")
     public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        if(userService.isUserPresent(user.getEmail())) {
+       /* if (userService.isUserPresent(user.getEmail())) {
             model.addAttribute("exist", true);
             return "register";
         }
-        userService.createUser(user);
+         userService.createUser(user);
         return "login-successfully";
+    }*/
+
+    @PostMapping("/process_register")
+    public String processRegistration(User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        repo.save(user);
+        return "register_successfully";
     }
-
-
-
 
 
     @GetMapping("/login")
@@ -67,6 +72,13 @@ public class RegisterController {
         return mav;
     }
 
+    @GetMapping("/users")
+    public String viewUsers(Model model) {
+        List<User> listUsers = repo.findAll();
+        model.addAttribute("listUsers", listUsers);
+        return "show-users";
+    }
+}
 
   /*  @PostMapping("/addUser")
     public ModelAndView addUser(@RequestParam("email") String email, User user)
@@ -131,4 +143,4 @@ public class RegisterController {
         session.invalidate();
         return "redirect:/login";
     }*/
-}
+

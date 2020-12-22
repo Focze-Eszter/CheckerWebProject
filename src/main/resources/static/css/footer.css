@@ -1,0 +1,7 @@
+footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    padding: 25px 10%;
+    background-color: #1b1f33;
+}

@@ -1,5 +1,7 @@
 package ro.siit.airports.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -17,6 +19,8 @@ public interface AirportRepository extends PagingAndSortingRepository<Airport, L
     List<Airport> findByCountry(String country);
 
     List<Airport> findByCity(String city);
+
+    Page<Airport> findAllByNameContainingOrCountryContainingOrCityContaining(String name, String Country, String City, Pageable pageable);
 }
 
 

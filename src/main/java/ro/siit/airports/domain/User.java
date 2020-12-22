@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -12,30 +13,27 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, String role) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
     @Id
-    @Email
-    @NotEmpty
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 45)
     private String email;
 
     @NotEmpty
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-
-    @Size(min = 4)
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "role")
     private String role;
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -68,6 +66,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {

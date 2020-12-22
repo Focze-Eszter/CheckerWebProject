@@ -21,16 +21,14 @@ public class AirportServiceImpl implements AirportService {
     private AirportRepository airportRepository;
 
 
-
-
     @Override
     public List<Airport> findFilteredAirports(final Search search) {
         List<Airport> list;
         if (search.hasCountry() && search.hasCity()) {
             list = airportRepository.findByCountryAndCity(search.getCountry(), search.getCity());
-        } else if(search.hasCountry()) {
+        } else if (search.hasCountry()) {
             list = airportRepository.findByCountry(search.getCountry());
-        } else if(search.hasCity()) {
+        } else if (search.hasCity()) {
             list = airportRepository.findByCity(search.getCity());
         } else {
             list = (List<Airport>) airportRepository.findAll();
@@ -44,7 +42,7 @@ public class AirportServiceImpl implements AirportService {
     public Page<Airport> listAll(int pageNumber, String sortedField, String sortedDirection) {
         Sort sort = Sort.by(sortedField);
         sort = sortedDirection.equals("ascending") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1,15, sort);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 15, sort);
         return airportRepository.findAll(pageable);
     }
 
@@ -56,7 +54,7 @@ public class AirportServiceImpl implements AirportService {
         System.out.println("getAirportById");
         Optional<Airport> airport = airportRepository.findById(id);
 
-        if(airport.isPresent()) {
+        if (airport.isPresent()) {
             return airport.get();
         } else {
             System.out.println("No airport record exist for given id");
@@ -67,7 +65,7 @@ public class AirportServiceImpl implements AirportService {
     public Airport createOrUpdateAirport(Airport airportEntity) {
         System.out.println("createOrUpdateAirport");
 
-        if(airportEntity.getId()  == 0) {
+        if (airportEntity.getId() == 0) {
             airportEntity = airportRepository.save(airportEntity);
 
             return airportEntity;
@@ -75,7 +73,7 @@ public class AirportServiceImpl implements AirportService {
             // update existing entry
             Optional<Airport> airport = airportRepository.findById(airportEntity.getId());
 
-            if(airport.isPresent()) {
+            if (airport.isPresent()) {
                 Airport newEntity = airport.get();
                 newEntity.setName(airportEntity.getName());
                 newEntity.setCountry(airportEntity.getCountry());
@@ -94,20 +92,21 @@ public class AirportServiceImpl implements AirportService {
     }
 
 
-
-
-    public void deleteAirportById(Long id)
-    {
+    public void deleteAirportById(Long id) {
         System.out.println("deleteAirportById");
 
         Optional<Airport> airport = airportRepository.findById(id);
 
-        if(airport.isPresent())
-        {
+        if (airport.isPresent()) {
             airportRepository.deleteById(id);
         } else {
             System.err.println("No airport record exist for given id");
         }
+    }
+    @Override
+    public Page<Airport> check(int pageNumber, String sortedField, String sortedDirection, String keyword) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10, sortedDirection.equals("ascending") ? Sort.by(sortedField).ascending() : Sort.by(sortedField).descending());
+        return airportRepository.findAllByNameContainingOrCountryContainingOrCityContaining(keyword, keyword, keyword, pageable);
     }
 }
 

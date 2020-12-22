@@ -1,4 +1,4 @@
-package ro.siit.airports.service;
+package ro.siit.airports.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,11 +6,11 @@ import ro.siit.airports.domain.User;
 
 import java.util.Collection;
 
-public class CustomUserDetail implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private User user;
 
-    public CustomUserDetail(User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
@@ -28,8 +28,6 @@ public class CustomUserDetail implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
-
-    public String getEmail() { return  user.getEmail(); }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -51,6 +49,8 @@ public class CustomUserDetail implements UserDetails {
         return true;
     }
 
-
+    public String getUserName() {
+        return user.getName();
+    }
 
 }

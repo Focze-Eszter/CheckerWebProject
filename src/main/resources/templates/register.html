@@ -7,10 +7,12 @@
     <script src="https://kit.fontawesome.com/c5db01e738.js" crossorigin="anonymous"></script>
     <!--<link href="../static/css/stylish.css" th:href="@{../static/css/stylish.css}" rel="stylesheet" />-->
     <link href="/static/css/stylish.css" th:href="@{/css/stylish.css}" rel="stylesheet" />
-    <script type="text/javascript" th:src = "@{/static/js/login-action.js}" src="/static/js/login-action.js"></script>
+   <!-- <script type="text/javascript" th:src = "@{/js/login-action.js}" src="/static/js/login-action.js"></script>-->
 
 </head>
 <body>
+<header th:insert="header :: head"></header>
+
 <div class="container">
     <div class="alert alert-info" th:if="${exist}">
         <p class="text text-center">
@@ -20,7 +22,7 @@
     <div class="header">
         <h2>Sign up</h2>
     </div>
-    <form  th:action="@{/register}" th:object="${user}" method="post" id="form" class="form">
+    <form  th:action="@{/process_register}" th:object="${user}" method="post" id="form" class="form">
         <div class="form-control">
             <label for="username"><b>Username</b></label>
             <input type="text" th:field ="*{name}" required placeholder="username12" id="username" />
@@ -57,10 +59,11 @@
             <small>Error message</small>
         </div>
         <button value="submit">Create your account</button>
-        <p class="py-2">Already have an account?<a th:href="@{/login}">Sign-in</a></p>
+        <p class="py-2">Already have an account?<a th:href="@{/login}"> Sign-in</a></p>
     </form>
 
 </div>
-    <script type="text/javascript" th:src = "@{/js/login-action.js}" src="/js/login-action.js"></script>
+    <script type="text/javascript" th:src = "@{/js/login-action.js}" src="static/js/login-action.js"></script>
+<div th:insert = "footer :: foot"></div>
 </body>
 </html>

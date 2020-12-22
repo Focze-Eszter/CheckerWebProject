@@ -11,46 +11,43 @@
     <link href="style.css" th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-
-<header th:insert="header :: head"></header>
-
-<div class="card">
-    <div class="card-body">
-        <div class="col-md-10">
+<div class="formular">
+    <div class="card">
+       <div class="card-body">
+           <div class="col-md-10">
             <form th:action="@{/createAirline}" th:object="${airline}" method="post">
-
                 <div class="row">
-
-                    <div class="form-group col-md-8">
-                        <label for="name" class="col-form-label">Name</label>
-                        <input type="text" th:field="*{name}" class="form-control"
+                        <div class="form-group col-md-8">
+                            <label for="name" class="col-form-label">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control"
                                id="name" placeholder="Name" />
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="country" class="col-form-label">Country</label>
-                        <input type="text" th:field="*{country}" class="form-control"
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="country" class="col-form-label">Country</label>
+                            <input type="text" th:field="*{country}" class="form-control"
                                id="country" placeholder="Country" />
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="icao" class="col-form-label">Icao</label>
-                        <input type="text" th:field="*{icao}" class="form-control"
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="icao" class="col-form-label">Icao</label>
+                            <input type="text" th:field="*{icao}" class="form-control"
                                id="icao" placeholder="Icao" />
-                    </div>
+                        </div>
 
-                    <div class="form-group col-md-8">
-                        <label for="iata" class="col-form-label">Iata</label>
-                        <input type="text" th:field="*{iata}" class="form-control"
+                        <div class="form-group col-md-8">
+                            <label for="iata" class="col-form-label">Iata</label>
+                            <input type="text" th:field="*{iata}" class="form-control"
                                id="iata" placeholder="Iata" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                        <input type="hidden" id="id" th:field="*{id}">
+
                     </div>
-
-                    <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary" value=" Submit ">
-                    </div>
-
-                    <input type="hidden" id="id" th:field="*{id}">
-
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -1,7 +1,13 @@
 package ro.siit.airports.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "flights")
@@ -15,11 +21,22 @@ public class Flight {
     @Column(name = "flight_no")
     private String flightNo;
 
-    @Column(name = "departure_time")
+
+    /*@Column(name = "departure_time")
     private LocalDateTime departure;
 
     @Column(name = "arrival_time")
     private LocalDateTime arrival;
+
+   /* @Column(name = "departure_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Instant createdDate;*/
+
+    @Column(name = "departure_time")
+    private Timestamp departure;
+
+    @Column(name = "arrival_time")
+    private Timestamp arrival;
 
 
     @ManyToOne(targetEntity = Airport.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -51,19 +68,19 @@ public class Flight {
         this.flightNo = flightsNo;
     }
 
-    public LocalDateTime getDeparture() {
+    public Timestamp getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalDateTime departure) {
+    public void setDeparture(Timestamp departure) {
         this.departure = departure;
     }
 
-    public LocalDateTime getArrival() {
+    public Timestamp getArrival() {
         return arrival;
     }
 
-    public void setArrival(LocalDateTime arrival) {
+    public void setArrival(Timestamp arrival) {
         this.arrival = arrival;
     }
 

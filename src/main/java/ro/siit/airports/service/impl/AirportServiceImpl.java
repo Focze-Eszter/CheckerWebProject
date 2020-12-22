@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ro.siit.airports.domain.Airport;
-//import ro.siit.airports.exception.RecordNotFoundException;
 import ro.siit.airports.model.Search;
 import ro.siit.airports.repository.AirportRepository;
 import ro.siit.airports.service.AirportService;
@@ -32,17 +31,19 @@ public class AirportServiceImpl implements AirportService {
             list = airportRepository.findByCity(search.getCity());
         } else {
             list = (List<Airport>) airportRepository.findAll();
-            //list = Page<Airport> list = airportRepository.findAll(fiftyElements);
 
         }
 
         return list;
     }
 
-    public Page<Airport> listAll(int pageNumber, String sortedField, String sortedDirection) {
+    public Page<Airport> listAll(int pageNumber, String sortedField, String sortedDirection, String keyword) {
         Sort sort = Sort.by(sortedField);
         sort = sortedDirection.equals("ascending") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, 15, sort);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 14, sort);
+        if (keyword != null) {
+            return airportRepository.findAll(keyword, pageable);
+        }
         return airportRepository.findAll(pageable);
     }
 
@@ -102,11 +103,6 @@ public class AirportServiceImpl implements AirportService {
         } else {
             System.err.println("No airport record exist for given id");
         }
-    }
-    @Override
-    public Page<Airport> check(int pageNumber, String sortedField, String sortedDirection, String keyword) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, 10, sortedDirection.equals("ascending") ? Sort.by(sortedField).ascending() : Sort.by(sortedField).descending());
-        return airportRepository.findAllByNameContainingOrCountryContainingOrCityContaining(keyword, keyword, keyword, pageable);
     }
 }
 

@@ -29,13 +29,6 @@ public class RegisterController {
     @Autowired
     UserRepository repo;
 
-   /* @InitBinder
-    public void initbinder(WebDataBinder dataBinder) {
-        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-    }*/
-
-
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("user", new User());

@@ -1,5 +1,4 @@
 package ro.siit.airports.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -31,7 +30,7 @@ public class AirportController {
         return "airport-page";
     }
 
-    @GetMapping("/airportsCompleteTable")
+   /* @GetMapping("/airportsCompleteTable")
     public String viewPage(Model model) {
        return listByPage(model,1, "name", "ascending");
     }
@@ -55,7 +54,7 @@ public class AirportController {
         model.addAttribute("sortedDirection", sortedDirection);
         return "airports-complete-table";
     }
-
+*/
 
     @GetMapping("/search")
     public ModelAndView displaySearchPage(Model model) {
@@ -73,11 +72,18 @@ public class AirportController {
         return modelAndView;
     }
 
+    @RequestMapping("/searchAirport")
+    public String showAirports(Model model) {
+        String keyword = null;
+        return listByPage(model,1,"name", "ascending", keyword);
+    }
+
+/*
     @PostMapping("/searchAirport")
     public String check(Model model, @ModelAttribute("keyword") final String keyword) {
         int pageNumber = 1;
         String sortedField = "id";
-        String sortedDirection = "asc";
+        String sortedDirection = "ascending";
 
         Page<Airport> page = airportService.check(pageNumber, sortedDirection, sortedDirection, keyword);
         List<Airport> showAirports = page.getContent();
@@ -88,6 +94,29 @@ public class AirportController {
         model.addAttribute("sortedField", sortedField);
         model.addAttribute("sortedDirection", sortedDirection);
         model.addAttribute("showAirports", showAirports);
+        return "searchAirport";
+    }*/
+
+    @GetMapping("airports/page/{pageNumber}")
+    public String listByPage(Model model, @PathVariable("pageNumber") int currentPage,
+                             @Param("sortedField") String sortedField,
+                             @Param("sortedDirection") String sortedDirection,
+                             @Param("keyword") String keyword) {
+
+        Page<Airport> page = airportService.listAll(currentPage, sortedField, sortedDirection, keyword);
+
+        long totalAirports = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+        List<Airport> listAirports = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalAirports", totalAirports);
+        model.addAttribute("totalPages" , totalPages);
+        model.addAttribute("listAirports", listAirports);
+        model.addAttribute("sortedField", sortedField);
+        model.addAttribute("sortedDirection", sortedDirection);
+        model.addAttribute("keyword", keyword);
+
         return "searchAirport";
     }
 
@@ -116,7 +145,7 @@ public class AirportController {
         System.out.println("deleteAirportById" + id);
 
         airportService.deleteAirportById(id);
-        return "redirect:/airports-complete-table";
+        return "redirect:/searchAirport";
     }
 
     @RequestMapping(path = "/createAirport", method = RequestMethod.POST)
@@ -126,7 +155,7 @@ public class AirportController {
 
         airportService.createOrUpdateAirport(airport);
 
-        return "redirect:/airports-complete-table";
+        return "redirect:/searchAirport";
     }
 }
 

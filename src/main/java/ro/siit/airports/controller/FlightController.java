@@ -8,12 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ro.siit.airports.domain.Airline;
+import ro.siit.airports.domain.Airport;
 import ro.siit.airports.domain.Flight;
 import ro.siit.airports.repository.FlightRepository;
 import ro.siit.airports.service.FlightService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class FlightController {
@@ -32,12 +34,44 @@ public class FlightController {
                 .findFirst()
                 .map(f -> f.getAirline().getName() + " " + f.getAirline().getIata()
                         + "\n" + f.getDepartureAirport().getName() + f.getDepartureAirport().getCountry()
-                        + "\n" + f.getArrivalAirport().getName() + " " + f.getArrivalAirport().getCity())
+                        + "\n" + f.getArrivalAirport().getName() + " " + f.getArrivalAirport().getCity() + "\n" + f.getDeparture())
                 .orElse("No data");
         mav.addObject("flight", flight);
         return mav;
 
     }
+
+
+
+    @GetMapping(path = {"/show/page/{page}/id/{id}"})
+    public String findFlightById(Model model, @Param("pageNumber") int currentPage,
+                                       @Param("sortedField") String sortedField,
+                                       @Param("sortedDirection") String sortedDirection, @PathVariable("id") Long airportId) {
+        System.out.println("findFlightById" + airportId);
+        /*final ModelAndView mav = new ModelAndView("detailsAirport");*/
+        final Page<Flight> flightsPage = flightService.getFlightsById(currentPage, sortedField, sortedDirection,airportId);
+       /* final String flight = flights.stream()
+                .findFirst()
+                .map(f -> f.getAirline().getName()
+                        + "\n" + f.getDepartureAirport().getName() + f.getDepartureAirport().getCountry()
+                        + "\n" + f.getArrivalAirport().getName() + " " + f.getArrivalAirport().getCity() + "\n" + f.getDeparture())
+                .orElse("No data");*/
+
+        long totalFlights = flightsPage.getTotalElements();
+        int totalPages = flightsPage.getTotalPages();
+        List<Flight> listFlights = flightsPage.getContent();
+
+       model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalFlights", totalFlights);
+        model.addAttribute("totalPages" , totalPages);
+        model.addAttribute("flights", listFlights);
+        model.addAttribute("sortedField", sortedField);
+        model.addAttribute("sortedDirection", sortedDirection);
+        /*return findFlightById(1,"name", "ascending", airportId);*/
+        return "detailsAirport";
+
+    }
+
 
     @GetMapping("/flight/city/{city}/date/{date}")
     public ModelAndView displayFilteredFlights(@PathVariable("city") final String city,
@@ -79,6 +113,27 @@ public class FlightController {
         model.addAttribute("sortedField", sortedField);
         model.addAttribute("sortedDirection", sortedDirection);
         return "displayFlights";
+    }
+
+    @RequestMapping(path = {"/edit/flight", "/edit/flight{id}"})
+    public String editFlightById(Model model, @PathVariable("id") Optional<Long> id) {
+
+        System.out.println("editFlightById" + id);
+        if (id.isPresent()) {
+            Flight flight = flightService.getFlightById(id.get());
+            model.addAttribute("flight", flight);
+        } else {
+            model.addAttribute("flight", new Flight());
+        }
+        return "add-new-flight";
+    }
+
+    @RequestMapping(path = "/delete/flight{id}")
+    public String deleteFlightById(Model model, @PathVariable("id") Long id) {
+        System.out.println("deleteFlightById" + id);
+
+        flightService.deleteFlightById(id);
+        return "searchFlight";
     }
 
 

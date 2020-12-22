@@ -10,20 +10,21 @@
 body {
     background: linear-gradient(#5d69be, #c89feb);
     font-family: 'Open Sans', sans-serif;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     margin: 0;
 }
 
-.container {
+.container-register {
     background-color: #fff;
     overflow: hidden;
     border-radius: 5px;
     box-shadow:2px 4px rgba(4, 14, 22, 0.96);
     width: 400px;
     max-width: 100%;
+    transform: translateY(65px);
 }
 
 .header {

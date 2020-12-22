@@ -13,7 +13,5 @@ public interface AirportService {
 
     List<Airport> findFilteredAirports(Search search);
 
-    Page<Airport> check(int pageNumber, String sortedField, String sortedDirection, String Keyword);
-
 
 }

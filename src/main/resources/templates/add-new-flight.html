@@ -15,63 +15,63 @@
 <body>
 <header th:insert="header :: head"></header>
 
-<div class="card">
-    <div class="card-body">
-        <div class="col-md-10">
-            <form th:action="@{/createFlight}" th:object="${flight}" method="post">
+<div class="flightForm">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form th:action="@{/}" th:object="${flight}" method="post">
 
-                <div class="row">
+                    <div class="row">
 
-                    <div class="form-group col-md-8">
-                        <label for="FlightNumber" class="col-form-label">Flight Number</label>
-                        <input type="text" th:field="*{FlightNo}" class="form-control"
-                               id="FlightNumber" placeholder="Flight number" />
-                    </div>
+                        <div class="form-group col-md-8">
+                            <label for="FlightNumber" class="col-form-label">Flight Number</label>
+                            <input type="text" th:field="*{flightNo}" class="form-control"
+                                   id="FlightNumber" placeholder="Flight number" />
+                        </div>
 
-                    <div class="form-group col-md-8">
-                        <label for="departure" class="col-form-label">Departure </label>
-                        <input type="datetime-local" th:field="*{departure}" class="form-control"
-                               id="departure" placeholder="departure" />
-                    </div>
-                </div>
-                <div class="form-group col-md-8">
-                    <label for="departureAirport" class="col-form-label">Departure airport</label>
-                    <input type="text" th:field="*{departureAirport}" class="form-control"
-                           id="departureAirport" placeholder="Departure Airport ID number" />
-                </div>
+                        <div class="form-group col-md-8">
+                            <label for="departure" class="col-form-label">Departure </label>
+                            <input type="datetime-local" th:field="*{departure}" class="form-control"
+                                   id="departure" placeholder="departure" />
+                        </div>
 
                     <div class="form-group col-md-8">
-                        <label for="arrival" class="col-form-label">Arrival</label>
-                        <input type="datetime-local" th:field="*{arrival}" class="form-control"
-                               id="arrival" placeholder="Arrival" />
+                        <label for="departureAirport" class="col-form-label">Departure airport</label>
+                        <input type="text" th:field="*{departureAirport}" class="form-control"
+                               id="departureAirport" placeholder="Departure Airport ID number" />
                     </div>
 
-                    <div class="form-group col-md-8">
-                        <label for="arrivalAirport" class="col-form-label">Arrival airport</label>
-                        <input type="text" th:field="*{arrivalAirport}" class="form-control"
-                               id="arrivalAirport" placeholder="Arrival airport ID number" />
-                    </div>
+                        <div class="form-group col-md-8">
+                            <label for="arrival" class="col-form-label">Arrival</label>
+                            <input type="datetime-local" th:field="*{arrival}" class="form-control"
+                                   id="arrival" placeholder="Arrival" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="arrivalAirport" class="col-form-label">Arrival airport</label>
+                            <input type="text" th:field="*{arrivalAirport}" class="form-control"
+                                   id="arrivalAirport" placeholder="Arrival airport ID number" />
+                        </div>
+
+
+                        <div class="form-group col-md-8">
+                            <label for="airlineFlight" class="col-form-label">Airline</label>
+                            <input type="text" th:field="*{airline}" class="form-control"
+                                   id="airlineFlight" placeholder="Airline" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                        <input type="hidden" id="id" th:field="*{id}">
 
                     </div>
-                    <div class="form-group col-md-8">
-                        <label for="airlineFlight" class="col-form-label">Airline</label>
-                        <input type="text" th:field="*{airline}" class="form-control"
-                               id="airlineFlight" placeholder="Airline" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary" value=" Submit ">
-                    </div>
-
-                    <input type="hidden" id="id" th:field="*{id}">
-
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
-<div th:insert = "footer :: foot"></div>
-
+<!--<div th:insert = "footer :: foot"></div>-->
 </body>
 </html>

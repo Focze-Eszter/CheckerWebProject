@@ -12,11 +12,10 @@
         <a href="#" class="logo">Checker</a>
         <ul class="nav-list">
             <li class="nav-item current"><a th:href="@{/home}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/searchAirport}">Airports</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/searchAirline}">Airlines</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Flights</a></li>
             <li class="nav-item"><a class="nav-link" th:href="@{/administrator}" sec:authorize="isAuthenticated()">Administrator</a></li>
-            <li class="nav-item"><a class="nav-link"href="#">Search</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Airport</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Airline</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Flight</a></li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/login}" id="Sign In" sec:authorize="isAnonymous()">
                     Sign in
@@ -30,5 +29,11 @@
         </ul>
     </header>
 </div>
+<script type="text/javascript ">
+    window.addEventListener("scroll", function() {
+        var header = document.querySelector("header");
+        header.classList.toggle("sticky", window.scrollY > 0);
+    });
+</script>
 </body>
 </html>

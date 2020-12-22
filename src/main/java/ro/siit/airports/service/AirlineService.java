@@ -17,10 +17,13 @@ public class AirlineService {
     @Autowired
     private AirlineRepository airlineRepository;
 
-    public Page<Airline> listAll(int pageNumber, String sortedField, String sortedDirection) {
+    public Page<Airline> listAll(int pageNumber, String sortedField, String sortedDirection, String keyword) {
         Sort sort = Sort.by(sortedField);
         sort = sortedDirection.equals("ascending") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, 15, sort);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 14, sort);
+        if (keyword != null) {
+            return airlineRepository.findAll(keyword, pageable);
+        }
         return airlineRepository.findAll(pageable);
     }
 
@@ -56,7 +59,7 @@ public class AirlineService {
                 newEntity.setName(airlineEntity.getName());
                 newEntity.setCountry(airlineEntity.getCountry());
                 newEntity.setIcao(airlineEntity.getIcao());
-
+                newEntity.setIata(airlineEntity.getIata());
                 newEntity = airlineRepository.save(newEntity);
 
                 return newEntity;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ro.siit.airports.domain.Airline;
+import ro.siit.airports.domain.Airport;
 import ro.siit.airports.repository.AirlineRepository;
 import ro.siit.airports.service.AirlineService;
 import java.util.List;
@@ -31,29 +32,33 @@ public class AirlinesController {
         return "airlines-search";
     }
 
-    @GetMapping("/airlinesCompleteTable")
-    public String viewPage(Model model) {
-        return listByPages(model,1, "name", "ascending");
+    @RequestMapping("/searchAirline")
+    public String showAirlines(Model model) {
+        String keyword = null;
+        return listByPage(model,1,"name", "ascending", keyword);
     }
 
     @GetMapping("airlines/page/{pageNumber}")
-    public String listByPages(Model model, @PathVariable("pageNumber") int currentPage,
+    public String listByPage(Model model, @PathVariable("pageNumber") int currentPage,
                              @Param("sortedField") String sortedField,
-                             @Param("sortedDirection") String sortedDirection) {
+                             @Param("sortedDirection") String sortedDirection,
+                             @Param("keyword") String keyword) {
 
-        Page<Airline> page = airlineService.listAll(currentPage, sortedField, sortedDirection);
+        Page<Airline> page = airlineService.listAll(currentPage, sortedField, sortedDirection, keyword);
 
         long totalAirlines = page.getTotalElements();
         int totalPages = page.getTotalPages();
-        List<Airline> airlinesList = page.getContent();
+        List<Airline> listAirlines = page.getContent();
 
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalAirlines", totalAirlines);
         model.addAttribute("totalPages" , totalPages);
-        model.addAttribute("MyAirline", airlinesList);
+        model.addAttribute("listAirlines", listAirlines);
         model.addAttribute("sortedField", sortedField);
         model.addAttribute("sortedDirection", sortedDirection);
-        return "airlines-complete-table";
+        model.addAttribute("keyword", keyword);
+
+        return "searchAirline";
     }
 
     @RequestMapping(path = {"/edit/airline", "/edit/airline{id}"})
@@ -74,7 +79,7 @@ public class AirlinesController {
         System.out.println("deleteAirlineById" + id);
 
         airlineService.deleteAirlineById(id);
-        return "airlines-complete-table";
+        return "searchAirline";
     }
 
     @RequestMapping(path = "/createAirline", method = RequestMethod.POST)
@@ -84,12 +89,6 @@ public class AirlinesController {
         airlineService.createOrUpdateAirline(airline);
 
         return "add-new-airline";
-    }
-
-    @GetMapping("/exp")
-    public String retrieve(final Model model) {
-
-        return "exp";
     }
 }
 

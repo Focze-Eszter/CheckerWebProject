@@ -219,15 +219,18 @@ header.sticky ul li a {
     text-align: center;
 }
 
-th, td {
-    display: table-cell;
-    width: 100px;
-    border: solid #0c002b;
-    height: auto;
+.body-process{
+    background: linear-gradient(rgba(245, 246,252,0.52), rgba(117, 19, 93, 0.73)), url("../images/path/to/image/welcome.jpg") center no-repeat fixed ;
+    background-attachment: fixed;
+    background-position-y: 50px;
+    background-size: cover;
 }
 
 .loggin-message {
     align-content: center;
+    text-decoration: none;
+    transform: translate(350px, 250px);
+
 }
 
 .home {
@@ -423,7 +426,7 @@ th, td {
     position:relative;
     width: 100px;
     height: auto;
-    transform: translateX(-20%);
+    transform: translateX(-15%);
 }
 
 .footer {
@@ -432,5 +435,35 @@ th, td {
     align-items:center;
     padding: 25px 10%;
     background-color: #1b1f33;
+}
+
+.formular .card {
+    transform: translate(90%, 30%);
+    width:450px;
+}
+
+.formular .card input {
+    width:360px;
+}
+
+.formular {
+    background: linear-gradient(rgba(245, 246,252,0.52), rgba(117, 19, 93, 0.73)), url("../images/path/to/image/background.jpg") center no-repeat fixed ;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.flightform .card {
+    transform: translate(90%, 30%);
+    width:450px;
+}
+
+.flightform .card input {
+    width:360px;
+}
+
+.flightForm {
+    background: linear-gradient(rgba(245, 246,252,0.52), rgba(117, 19, 93, 0.73)), url("../images/path/to/image/background.jpg") center no-repeat fixed ;
+    background-attachment: fixed;
+    height: 100vh;
 }
 

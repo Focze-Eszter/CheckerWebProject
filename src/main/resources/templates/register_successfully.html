@@ -10,8 +10,7 @@
           crossorigin="anonymous">
     <link href="style.css" th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
-<body>
-
+<body class="body-process">
 <header th:insert="header :: head"></header>
 
 
@@ -21,7 +20,5 @@
     <h3><a th:href = "@{/login}">Please sign in to continue</a></h3>
 
 </div>
-
-<div th:insert = "footer :: foot"></div>
 </body>
 </html>

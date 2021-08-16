@@ -14,4 +14,10 @@ public class HomeController {
         final ModelAndView modelAndView = new ModelAndView("home");
         return modelAndView;
     }
+
+    @GetMapping("/administration")
+    public ModelAndView displayAdministrationPage(Model model) {
+        final ModelAndView modelAndView = new ModelAndView("administration");
+        return modelAndView;
+    }
 }

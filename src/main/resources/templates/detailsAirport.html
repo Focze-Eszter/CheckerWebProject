@@ -28,11 +28,12 @@
         </thead>
         <tbody>
         <tr th:each="a : ${flights}">
+            <td th:text="${a.flightNo}"></td>
             <td th:text="${a.departureAirport}"></td>
             <td th:text = "${a.departure}"></td>
-            <td th:text = "${a.airline}"></td>
             <td th:text = "${a.getArrivalAirport()}"></td>
-            <td th:text = "${a.getAirline()}"></td>
+            <td th:text = "${a.arrival}"></td>
+            <td th:text = "${a.airline}"></td>
             <td>
                 <a th:href="@{/edit/{id}(id=${a.id})}" class="btn btn-primary">
                     <i class="fas fa-user-edit ml-2">Edit</i>
@@ -45,7 +46,6 @@
         </tr>
         </tbody>
     </table>
-
 </div>
 </body>
 </html>

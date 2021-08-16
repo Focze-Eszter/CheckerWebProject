@@ -11,11 +11,11 @@
     <div id="flight" class="logo-img"><img src="../static/images/path/to/image/aircraft.png" th:src="@{images/path/to/image/aircraft.png}"></div>
         <a href="#" class="logo">Checker</a>
         <ul class="nav-list">
-            <li class="nav-item current"><a th:href="@{/home}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/home}">Home</a></li>
             <li class="nav-item"><a class="nav-link" th:href="@{/searchAirport}">Airports</a></li>
             <li class="nav-item"><a class="nav-link" th:href="@{/searchAirline}">Airlines</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Flights</a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/administrator}" sec:authorize="isAuthenticated()">Administrator</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/administration}" sec:authorize="isAuthenticated()">Administrator</a></li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/login}" id="Sign In" sec:authorize="isAnonymous()">
                     Sign in

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ro.siit.airports.domain.Airline;
-import ro.siit.airports.domain.Airport;
 import ro.siit.airports.repository.AirlineRepository;
 import ro.siit.airports.service.AirlineService;
 import java.util.List;

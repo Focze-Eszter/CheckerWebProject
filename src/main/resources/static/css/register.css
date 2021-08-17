@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
 
-
-
-* {
+html {
     box-sizing: border-box;
+    height: 175%;
 }
 
 body {
@@ -12,9 +11,11 @@ body {
     font-family: 'Open Sans', sans-serif;
     background-attachment: fixed;
     display: flex;
+     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 0;
+    min-height: 100%;
 }
 
 .container-register {
@@ -24,13 +25,13 @@ body {
     box-shadow:2px 4px rgba(4, 14, 22, 0.96);
     width: 400px;
     max-width: 100%;
-    transform: translateY(65px);
+    transform: translateY(82px);
 }
 
 .header {
     background-color:#f7f7f7;
     border-bottom: 1px solid #f0f0f0;
-    padding: 20px 40px;
+    padding: 10px 40px;
 }
 
 .header h2 {
@@ -38,12 +39,11 @@ body {
 }
 
 .form {
-    padding: 30px 40px;
+    padding: 10px 40px;
 }
 
 .form-control {
-    margin-bottom: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     position: relative;
 }
 
@@ -59,8 +59,7 @@ body {
     font-size: 14px;
     font-family: inherit;
     padding: 10px;
-    width: 100%;
-
+    width: 90%;
 }
 
 .form-control input:focus {
@@ -81,19 +80,16 @@ body {
     top: 40px;
     right: 10px;
     visibility: hidden;
-
 }
 
 .form-control.success i.fa-check-circle {
     color: #2ecc71;
     visibility: visible;
-
 }
 
 .form-control.error i.fa-exclamation-circle {
     color: #e74c3c;
     visibility: visible;
-
 }
 
 .form-control small {
@@ -107,6 +103,7 @@ body {
 .form-control.error small {
     visibility: visible;
 }
+
 .form button {
     background-color: #8e44ad;
     border:2px solid #8e44ad;
@@ -116,10 +113,25 @@ body {
     font-size: 16px;
     font-family: inherit;
     padding: 10px;
-    margin-top: 20px;
     width: 100%;
 }
 
+#thumbnail {
+    border-radius: 8%;
+}
 
+.py-2 {
+    margin: 6px;
+    margin-bottom: 0;
+    font-size: 0.9em;
+    text-align: center;
+}
 
+.avatar-label {
+    font-size: 0.9rem;
+}
+
+.avatar p {
+    margin-top: 0px;
+}
 

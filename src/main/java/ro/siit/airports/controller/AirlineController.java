@@ -5,10 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ro.siit.airports.domain.Airline;
 import ro.siit.airports.repository.AirlineRepository;
 import ro.siit.airports.service.AirlineService;
@@ -16,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class AirlinesController {
+public class AirlineController {
 
     @Autowired
     private AirlineRepository  airlineRepository;
@@ -60,6 +57,29 @@ public class AirlinesController {
         return "searchAirline";
     }
 
+    @PostMapping("airlines/page/{pageNumber}")
+    public String listByThePage(Model model, @PathVariable("pageNumber") int currentPage,
+                             @Param("sortedField") String sortedField,
+                             @Param("sortedDirection") String sortedDirection,
+                             @Param("keyword") String keyword) {
+
+        Page<Airline> page = airlineService.listAll(currentPage, sortedField, sortedDirection, keyword);
+
+        long totalAirlines = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+        List<Airline> listAirlines = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalAirlines", totalAirlines);
+        model.addAttribute("totalPages" , totalPages);
+        model.addAttribute("listAirlines", listAirlines);
+        model.addAttribute("sortedField", sortedField);
+        model.addAttribute("sortedDirection", sortedDirection);
+        model.addAttribute("keyword", keyword);
+
+        return "searchAirline";
+    }
+
     @RequestMapping(path = {"/edit/airline", "/edit/airline{id}"})
     public String editAirportById(Model model, @PathVariable("id") Optional<Long> id) {
 
@@ -81,13 +101,11 @@ public class AirlinesController {
         return "searchAirline";
     }
 
-    @RequestMapping(path = "/createAirline", method = RequestMethod.POST)
+    @RequestMapping(path = "/createAirline" /*, method = RequestMethod.POST*/)
     public String createOrUpdateAirline(Airline airline) {
         System.out.println("createOrUpdateAirline ");
-
         airlineService.createOrUpdateAirline(airline);
-
-        return "add-new-airline";
+        return "redirect:/searchAirline";
     }
 }
 

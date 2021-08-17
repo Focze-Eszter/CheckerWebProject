@@ -25,7 +25,6 @@ public class AirportController {
     @GetMapping("/airports/{airportCode}")
     public String retrieveAirports(final Model model) {
         final List<Airport> airports = (List<Airport>) airportRepository.findAll();
-        //final List<String> names = opt.stream().map(q -> q.getName()).collect(Collectors.toList());
         model.addAttribute("myAirports", airports);
         return "airport-page";
     }
@@ -36,7 +35,6 @@ public class AirportController {
         final ModelAndView modelAndView = new ModelAndView("search");
         modelAndView.addObject("search", new Search());
         return modelAndView;
-
     }
 
     @PostMapping("/search")
@@ -78,9 +76,7 @@ public class AirportController {
     }
 
     @RequestMapping(path = {"/edit", "/edit/{id}"})
-    public String editAirportById(Model model, @PathVariable("id") Optional<Long> id)
-
-    {
+    public String editAirportById(Model model, @PathVariable("id") Optional<Long> id) {
 
         System.out.println("editAirportById" + id);
         if (id.isPresent()) {
@@ -90,14 +86,11 @@ public class AirportController {
             model.addAttribute("airport", new Airport());
         }
 
-
         return "add-edited-airport";
     }
 
     @RequestMapping(path = "/delete/{id}")
-    public String deleteAirportById(Model model, @PathVariable("id") Long id)
-
-    {
+    public String deleteAirportById(Model model, @PathVariable("id") Long id) {
 
         System.out.println("deleteAirportById" + id);
 
@@ -113,6 +106,13 @@ public class AirportController {
         airportService.createOrUpdateAirport(airport);
 
         return "redirect:/searchAirport";
+    }
+
+    @GetMapping("/show/{id}")
+    public String showAirportDetails(Model model, @PathVariable("id") Long id) {
+        Airport airport = airportService.getAirportById(id);
+        model.addAttribute("airport_details", airport);
+        return "details-page";
     }
 }
 
